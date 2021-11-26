@@ -17,8 +17,16 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 set(PROJECT_SOURCES
         main.cpp
         fenetre.cpp
+        fenetre_solve.cpp
         fenetre.h
         fenetre.ui
+        myspinbox.cpp
+        myspinbox.h
+        grille.cpp
+        grille.h
+        mycase.cpp
+        mycase.h
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
