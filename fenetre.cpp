@@ -15,6 +15,9 @@ fenetre::fenetre(QWidget *parent) : QWidget(parent)
     bouton_init = new QPushButton("init", this);
     bouton_init->move(500, 450);
     QObject::connect(bouton_init, SIGNAL(clicked()), this, SLOT(init()));
+    bouton_test = new QPushButton("test", this);
+    bouton_test->move(400, 450);
+    QObject::connect(bouton_test, SIGNAL(clicked()), this, SLOT(test()));
 
 
 

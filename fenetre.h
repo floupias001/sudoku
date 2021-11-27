@@ -12,6 +12,15 @@
 #include <iostream>
 #include <vector>
 
+#define KNRM  "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
+
 class fenetre : public QWidget
 {
     Q_OBJECT
@@ -19,6 +28,7 @@ class fenetre : public QWidget
 public slots :
     void solve();
     void init();
+    void test();
 
 public:
     fenetre(QWidget *parent = nullptr);
@@ -30,6 +40,7 @@ public:
     QPushButton *bouton_quitter;
     QPushButton *bouton_solve;
     QPushButton *bouton_init;
+    QPushButton *bouton_test;
 
 
 

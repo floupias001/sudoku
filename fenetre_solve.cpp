@@ -1,47 +1,65 @@
 #include "fenetre.h"
+#ifndef DEBUG
+#define DEBUG 0
+#endif
 
 void fenetre::solve(){
-    //label11->setStyleSheet("QLabel { background-color : yellow }");
     //disconnect
     QSignalBlocker* blocker = new QSignalBlocker(this);
 
     //solving
     int current = 0;
+    int nb_current = 0; //place de current dans la PILE ie liste sans les is_valid=FIX
     int ok = 0;
-    int previous = 0;
-    std::vector<int> pile;
+    std::vector<int> pile; //PILE des elmts non FIX
+
     while( current < 81){
-        std::cout << "DEBUT" << current << std::endl ;
-        std::cout << "is_valid de current" << ((grid->liste)[current])->is_valid << std::endl;
+#if DEBUG
+
+        std::cout << KRED << "DEBUT" << current << KNRM << std::endl ;
+        std::cout << "is_valid : " << ((grid->liste)[current])->is_valid << std::endl;
+#endif
         if (((grid->liste)[current])->is_valid != FIX){
-            pile.push_back(current);
+
+            nb_current ++;
+            if(pile.size() < nb_current) pile.push_back(current); //ie elmt jamais rencontre => on le met ds la pile
+
             if (((grid->liste)[current])->valeur == 0) ok = 0;
             else ok = grid->test(current);
-            int c = 0;
-            previous = current;
+
             while(!ok){
+/*#if DEBUG
+               if (current > 30){
                 std::cout << "current" << current << std::endl;
                 std::cout << "valeur" << ((grid->liste)[current])->valeur << std::endl;
+               }
+#endif*/
                 if (((grid->liste)[current])->valeur < 9){
+
                     ((grid->liste)[current])->valeur ++;
+#if DEBUG
                     std::cout << "redef valeur : " << ((grid->liste)[current])->valeur << std::endl;
+#endif
                     ok = grid->test(current);
+
                 } else {
-                    c++;
-                    std::cout << "c" << c << std::endl;
+
                     ((grid->liste)[current])->valeur = 0;
-                    //previous = current - 1;
-                    current = pile[pile.size() - c - 1];
+                    current = pile[nb_current - 1];
+                    nb_current --;
+#if DEBUG
                     std::cout << "redef current : " << current << std::endl ;
+#endif
                 }
 
 
             }
-            current = previous;
         }
         current ++;
     }
+#if DEBUG
     std::cout << "sortie du solving" << std::endl;
+#endif
 
     //ecriture grille -> label
     writevalue();
@@ -51,22 +69,46 @@ void fenetre::solve(){
 
 void fenetre::init(){
     QSignalBlocker* blocker = new QSignalBlocker(this);
-    grid->case11->changevalue(1);
-    (grid->case11)->is_valid = FIX;
-    grid->case19->changevalue(4);
-    (grid->case19)->is_valid = FIX;
-    grid->case85->changevalue(7);
-    (grid->case85)->is_valid = FIX;
-    grid->case24->changevalue(1);
-    (grid->case24)->is_valid = FIX;
-    grid->case46->changevalue(2);
-    (grid->case46)->is_valid = FIX;
-    grid->case76->changevalue(3);
-    (grid->case76)->is_valid = FIX;
-    grid->case82->changevalue(4);
-    (grid->case82)->is_valid = FIX;
-    grid->case93->changevalue(7);
-    (grid->case93)->is_valid = FIX;
+    grid->case12->changevalue(5, FIX);
+    grid->case13->changevalue(3, FIX);
+    grid->case15->changevalue(2, FIX);
+    grid->case17->changevalue(9, FIX);
+    grid->case19->changevalue(6, FIX);
+    grid->case21->changevalue(8, FIX);
+    grid->case33->changevalue(9, FIX);
+    grid->case34->changevalue(4, FIX);
+    grid->case36->changevalue(5, FIX);
+    grid->case38->changevalue(1, FIX);
+    grid->case43->changevalue(4, FIX);
+    grid->case44->changevalue(7, FIX);
+    grid->case48->changevalue(3, FIX);
+    grid->case49->changevalue(9, FIX);
+    grid->case61->changevalue(1, FIX);
+    grid->case62->changevalue(3, FIX);
+    grid->case66->changevalue(2, FIX);
+    grid->case67->changevalue(6, FIX);
+    grid->case72->changevalue(6, FIX);
+    grid->case74->changevalue(5, FIX);
+    grid->case76->changevalue(8, FIX);
+    grid->case77->changevalue(2, FIX);
+    grid->case89->changevalue(3, FIX);
+    grid->case91->changevalue(3, FIX);
+    grid->case93->changevalue(8, FIX);
+    grid->case95->changevalue(9, FIX);
+    grid->case97->changevalue(1, FIX);
+    grid->case98->changevalue(5, FIX);
+    delete blocker;
+}
+
+void fenetre::test(){
+    QSignalBlocker* blocker = new QSignalBlocker(this);
+    for (int i=0; i<81; i++){
+        mycase* elmt = grid->liste[i];
+        if (elmt->is_valid != FIX){
+            if (grid->test(i)) elmt->changevalue(elmt->valeur,OK);
+            else elmt->changevalue(elmt->valeur,FALSE);
+        }
+    }
     delete blocker;
 }
 

@@ -11,11 +11,31 @@ mycase::mycase(mylabel* label_, myspinbox* spinbox_) : QWidget()
 
 void mycase::changevalue(int nb){
     valeur = nb;
-    label->setNum(nb);
+    refreshlabel();
+}
+
+void mycase::changevalue(int nb, int valid){
+    valeur = nb;
+    is_valid = valid;
+    refreshlabel();
 }
 
 void mycase::refreshlabel(){
     label->setNum(valeur);
+    switch(is_valid){
+    case FALSE :
+        label->setStyleSheet("QLabel { background-color : red }");
+        break;
+    case OK :
+        label->setStyleSheet("QLabel { background-color : green }");
+        break;
+    case FIX :
+        label->setStyleSheet("QLabel { background-color : gray }");
+        break;
+    default :
+        ;
+    }
+
 }
 
 mycase::~mycase(){

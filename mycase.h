@@ -28,6 +28,7 @@ public:
 
 public slots :
     void changevalue(int nb);
+    void changevalue(int nb, int valid);
 };
 
 #endif // MYCASE_H

@@ -12,6 +12,7 @@ int grille::test_ligne(int nb){
         k = i*9 + o;
         if ((liste[k])->valeur == valeur && (nb != k)) return 0;
     }
+    //std::cout << KBLU << "TEST LIGNE OK" << KNRM << std::endl ;
     return 1;
 }
 
@@ -23,52 +24,55 @@ int grille::test_colonne(int nb){
         k = i + 9*o;
         if ((liste[k])->valeur == valeur && (nb != k)) return 0;
     }
+    //std::cout << KBLU << "TEST COLONNE OK" << KNRM << std::endl ;
     return 1;
 }
 
 int grille::test_bloc(int nb){
     int valeur = (liste[nb])->valeur;
-    int i = nb/9 + 1; // n de ligne
-    int j = nb%9 + 1; // n de colonne
+    int i = nb/9; // n de ligne (commence à 0)
+    int j = nb%9; // n de colonne
     int i2 = 0; //n de ligne en haut a gauche du bloc
     int j2 = 0; // idem colonne
     switch (i){
+        case 3:
         case 4:
         case 5:
-        case 6:
-            i2 = 4;
+            i2 = 3;
         break;
-        case 7 :
+        case 6 :
+        case 7:
         case 8:
-        case 9:
-            i2 = 7;
+            i2 = 6;
         break;
     default :
-        i2 = 1;
+        i2 = 0;
     }
     switch (j){
+        case 3:
         case 4:
         case 5:
-        case 6:
-            j2 = 4;
+            j2 = 3;
         break;
-        case 7 :
+        case 6 :
+        case 7:
         case 8:
-        case 9:
-            j2 = 7;
+            j2 = 6;
         break;
     default :
-        j2 = 1;
+        j2 = 0;
     }
 
     int k = 0;
     for (int o=0; o<3; o++){
         for (int oo = 0; oo < 3; oo++){
-            k = o + i2 +9*oo + 9*j2;
+            k = o + j2 +9*oo + 9*i2;
+            //std::cout << KBLU << "TEST BLOC ?" << KNRM << std::endl ;
+            //std::cout  << (liste[k])->valeur << "  pour k=" <<  k << "et valeur " << valeur << std::endl ;
             if ((liste[k])->valeur == valeur && (nb!=k)) return 0;
         }
     }
-
+    //std::cout << KBLU << "TEST BLOC OK" << KNRM << std::endl ;
     return 1;
 }
 
