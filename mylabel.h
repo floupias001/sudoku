@@ -7,7 +7,7 @@
 class mylabel : public QLabel
 {
 public:
-    mylabel();
+    mylabel(QWidget *parent = nullptr);
 };
 
 #endif // MYLABEL_H

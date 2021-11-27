@@ -1,6 +1,6 @@
 #include "mylabel.h"
 
-mylabel::mylabel()
+mylabel::mylabel(QWidget *parent) : QLabel( parent)
 {
 
 }

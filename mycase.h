@@ -1,22 +1,33 @@
 #ifndef MYCASE_H
 #define MYCASE_H
 
+#include "myspinbox.h"
+#include "mylabel.h"
+#include <QWidget>
+
 
 #define FALSE -1
 #define NA 0
 #define OK 1
 #define FIX 2
 
-class mycase
+class mycase : public QWidget
 {
+    Q_OBJECT
+
 public:
-    mycase(int ligne_, int colonne_, int bloc_);
+    mycase( mylabel* label_, myspinbox* spinbox_);
     ~mycase();
     int valeur;
-    int ligne;
-    int colonne;
-    int bloc;
     int is_valid;
+
+    mylabel* label;
+    myspinbox* spinbox;
+
+    void refreshlabel();
+
+public slots :
+    void changevalue(int nb);
 };
 
 #endif // MYCASE_H

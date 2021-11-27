@@ -1,12 +1,21 @@
 #include "mycase.h"
 
-mycase::mycase(int ligne_, int colonne_, int bloc_)
+mycase::mycase(mylabel* label_, myspinbox* spinbox_) : QWidget()
 {
-    ligne = ligne_;
-    colonne = colonne_;
-    bloc = bloc_;
     valeur = 0;
     is_valid = 0;
+    label = label_;
+    spinbox = spinbox_;
+    QObject::connect(spinbox, SIGNAL(valueChanged(int)), this, SLOT(changevalue(int)));
+}
+
+void mycase::changevalue(int nb){
+    valeur = nb;
+    label->setNum(nb);
+}
+
+void mycase::refreshlabel(){
+    label->setNum(valeur);
 }
 
 mycase::~mycase(){

@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
         grille.h
         mycase.cpp
         mycase.h
+        mylabel.cpp
+        mylabel.h
 
 )
 
